@@ -1,0 +1,46 @@
+{
+    "name": "@lumieducation/h5p-examples",
+    "private": "true",
+    "version": "8.0.1",
+    "description": "",
+    "main": "build/express.js",
+    "scripts": {
+        "build:client": "npx tsc -p ./tsconfig.client.json",
+        "build:server": "npx tsc -p ./tsconfig.server.json",
+        "build": "npm run build:server && npm run build:client",
+        "clean": "rm -rf h5p && rm -rf build && rm -rf coverage && rm -rf node_modules",
+        "start": "cross-env CACHE=in-memory node build/express.js",
+        "test:e2e:tests": "npx jest --config jest.e2e.config.js --maxWorkers=1",
+        "test:e2e": "start-server-and-test start http://localhost:8080 test:e2e:tests",
+        "test:server+upload": "start-server-and-test start http://localhost:8080 test:upload",
+        "test:upload": "npx ts-node test/e2e/customUpload.ts ${H5P_FILES} ${ERROR_FILE}",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@lumieducation/h5p-express": "^8.0.1",
+        "@lumieducation/h5p-html-exporter": "^8.0.1",
+        "@lumieducation/h5p-mongos3": "^8.0.1",
+        "@lumieducation/h5p-server": "^8.0.1",
+        "body-parser": "1.19.0",
+        "cache-manager": "3.4.4",
+        "cache-manager-redis-store": "2.0.0",
+        "express": "4.17.1",
+        "express-fileupload": "^1.2.1",
+        "fs-extra": "9.1.0",
+        "i18next": "20.3.2",
+        "i18next-fs-backend": "1.1.1",
+        "i18next-http-middleware": "3.1.4",
+        "react": "17.0.2",
+        "tmp-promise": "3.0.2"
+    },
+    "devDependencies": {
+        "@types/express": "4.17.13",
+        "@types/puppeteer": "5.4.4",
+        "@types/react": "17.0.14",
+        "cross-env": "7.0.3",
+        "puppeteer": "9.1.1",
+        "start-server-and-test": "1.12.6"
+    }
+}
